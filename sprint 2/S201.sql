@@ -38,21 +38,21 @@
 
 -- Llistat dels països que estan generant vendes.
 
-SELECT DISTINCT country FROM company co
+SELECT DISTINCT co.country FROM company co
 JOIN transaction tr ON tr.company_id = co.id;
 
 
 -- Des de quants països es generen les vendes.
 
-SELECT COUNT(DISTINCT Country) AS RecomptePaisos FROM company co
+SELECT COUNT(DISTINCT co.country) AS RecomptePaisos FROM company co
 JOIN transaction tr ON tr.company_id = co.id;
 
 -- Identifica la companyia amb la mitjana més gran de vendes.
 
-SELECT company_name, ROUND(AVG(amount), 2) AS MitjaCompanyia FROM company co
+SELECT co.company_name, ROUND(AVG(tr.amount), 2) AS MitjaCompanyia FROM company co
 JOIN transaction tr ON tr.company_id = co.id
 WHERE declined = 0
-GROUP BY company_name
+GROUP BY co.id
 ORDER BY MitjaCompanyia DESC
 LIMIT 1;
 
@@ -62,18 +62,20 @@ LIMIT 1;
 
 -- Mostra totes les transaccions realitzades per empreses d'Alemanya.
 
-SELECT tr.id FROM transaction tr  
+SELECT tr.id FROM transaction tr
 WHERE EXISTS (
 	SELECT co.id FROM company co
-    WHERE co.country = 'Germany')
-    ;
+    WHERE co.country = 'Germany'
+    AND co.id = tr.company_id) 
+;
 
 -- Llista les empreses que han realitzat transaccions per un amount superior a la mitjana de totes les transaccions.
 
 SELECT co.company_name FROM company co 
 WHERE EXISTS (
-	SELECT company_id FROM transaction 
-    WHERE amount > (SELECT AVG(amount) FROM transaction))
+	SELECT tr.company_id FROM transaction tr
+    WHERE tr.amount > (SELECT AVG(tr.amount) FROM transaction tr)
+    AND tr.company_id = co.id)
     ;
 
 -- Eliminaran del sistema les empreses que no tenen transaccions registrades, entrega el llistat d'aquestes empreses.
@@ -83,7 +85,7 @@ FROM company co
 WHERE NOT EXISTS (
     SELECT tr.company_id
     FROM transaction tr
-    WHERE declined = 0)
+    WHERE co.id = tr.company_id)
 ;
 -- Totes les companyies tenen transaccions registrades. 
 -- El nombre de diferents companyies amb transaccions i companyies a la base de dades coincideix
@@ -96,7 +98,8 @@ SELECT DISTINCT id FROM company;     -- 100 companyies
 -- Identifica els cinc dies que es va generar la quantitat més gran d'ingressos a l'empresa per vendes. Mostra la data de cada transacció juntament amb el total de les vendes.
 
 SELECT SUM(amount) AS TotalVentesDiaries, DATE(timestamp) AS Data
-FROM transaction tr 
+FROM transaction 
+WHERE declined = "0"   -- Tot i no ser sifgnificatiu, filtrem nomes ventes consumades
 GROUP BY Data
 ORDER BY TotalVentesDiaries DESC
 LIMIT 5;
@@ -107,8 +110,8 @@ LIMIT 5;
 SELECT co.country AS pais, ROUND(AVG(tr.amount), 2) AS MitjanaVendesXpais 
 FROM company co
 JOIN transaction tr on tr.company_id = co.id
-WHERE declined = 0
-GROUP BY co.country
+WHERE tr.declined = 0  -- En aquest cas demana per vendes, no per transaccions, per tant, afegim la condició
+GROUP BY pais
 ORDER BY MitjanaVendesXpais DESC;
 
 
@@ -122,8 +125,8 @@ ORDER BY MitjanaVendesXpais DESC;
 SELECT * FROM transaction tr
 JOIN company co ON co.id = tr.company_id
 WHERE co.country = (
-	SELECT country FROM company
-    WHERE company_name = 'Non institute');
+	SELECT co.country FROM company co
+    WHERE co.company_name = 'Non institute');
 
 -- Mostra el llistat aplicant solament subconsultes.
 
@@ -143,13 +146,12 @@ WHERE company_id IN (
 );
  
  SELECT t.*, c.*
-FROM (transaction t, company c)
+FROM transaction t, company c
 WHERE company_id IN (
 	SELECT id FROM company
     WHERE country = (
 		SELECT country FROM company
-        WHERE company_name = 'Non institute'
-	)
+        WHERE company_name = 'Non institute')
 )
 AND t.company_id = c.id
 ;
@@ -161,12 +163,11 @@ AND t.company_id = c.id
 -- i en alguna d'aquestes dates: 29 d'abril del 2015, 20 de juliol del 2018 i 13 de març del 2024. 
 -- Ordena els resultats de major a menor quantitat.
 
-SELECT company_name, phone, country, SUM(tr.amount) s_amount, DATE(tr.timestamp) data FROM company co
+SELECT company_name, phone, country, amount FROM company co
 JOIN transaction tr ON tr.company_id = co.id
-WHERE DATE(tr.timestamp) IN ("2015-04-29", "2018-07-20", "2024-03-13") 
-GROUP BY tr.company_id, data
-HAVING s_amount BETWEEN 350 AND 400
-ORDER BY s_amount DESC
+WHERE DATE(timestamp) IN ("2015-04-29", "2018-07-20", "2024-03-13") AND amount BETWEEN 350 AND 400
+GROUP BY company_id, amount
+ORDER BY amount DESC
 ;
 
 -- Exercici 2
@@ -182,7 +183,6 @@ CASE
 END AS transaccions
 FROM transaction tr
 JOIN company co ON co.id = tr.company_id
-WHERE declined = 0
 GROUP BY company_id
 ORDER BY total DESC
 ;
