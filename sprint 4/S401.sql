@@ -101,13 +101,15 @@ SELECT * FROM transactions;
 -- Exercici 1
 -- Realitza una subconsulta que mostri tots els usuaris amb més de 80 transaccions utilitzant almenys 2 taules.
 
-SELECT u.*, count(t.id) total_transactions FROM users u
-JOIN transactions t ON t.user_id = u.id
-GROUP BY t.user_id
-HAVING total_transactions > 80
-ORDER BY total_transactions DESC
-;
-
+SELECT *
+FROM users u
+WHERE u.id IN (
+    SELECT t.user_id
+    FROM transactions t
+    GROUP BY t.user_id
+    HAVING COUNT(*) > 80
+);
+               
 -- Exercici 2
 -- Mostra la mitjana d'amount per IBAN de les targetes de crèdit a la companyia Donec Ltd, utilitza almenys 2 taules.
 
@@ -121,31 +123,30 @@ GROUP BY iban;
 -- Crea una nova taula que reflecteixi l'estat de les targetes de crèdit basat en si 
 -- les tres últimes transaccions han estat declinades aleshores és inactiu, 
 -- si almenys una no és rebutjada aleshores és actiu. Partint d’aquesta taula respon:
+
 DROP TABLE card_activity;
 CREATE TABLE card_activity (
     id VARCHAR(100) PRIMARY KEY,
 	estat_tarjeta VARCHAR (50)
 )
 AS
-SELECT id,
-	CASE
-	   WHEN SUM(ultimes_trans.declined = 1 ) = 3 THEN "tarjeta inactiva"
-	   ELSE "Tarjeta activa"
-	END 
-AS estat_tarjeta
-FROM 	
-	(SELECT card_id, timestamp, declined, plus_antique
-		FROM (SELECT t.*,
-				ROW_NUMBER() OVER (
-					PARTITION BY card_id
-					ORDER BY timestamp DESC) AS plus_antique
-	FROM transactions t) ultimes_numerades
-        WHERE plus_antique <= 3
-		ORDER BY card_id, timestamp DESC) ultimes_trans
-JOIN credit_cards ON credit_cards.id = ultimes_trans.card_id
-GROUP BY ultimes_trans.card_id
+SELECT cc.id, user_id, iban,
+    CASE
+        WHEN SUM(ultimes.declined) = 3 THEN "tarjeta inactiva"
+	    ELSE "Tarjeta activa"
+    END AS estat_tarjeta
+FROM credit_cards cc
+JOIN (SELECT t.card_id, t.declined,
+        ROW_NUMBER() OVER (
+            PARTITION BY t.card_id
+            ORDER BY t.timestamp DESC
+        ) AS numerades
+    FROM transactions t) ultimes 
+    ON ultimes.card_id = cc.id
+WHERE ultimes.numerades <= 3
+GROUP BY cc.id, cc.user_id, cc.iban
+ORDER BY cc.id;
 ;
-
 
 SELECT * FROM card_activity;
 ALTER TABLE card_activity
@@ -153,7 +154,7 @@ ADD FOREIGN KEY (id) REFERENCES credit_cards(id);
 
 -- Exercici 1
 -- Quantes targetes estan actives?
-SELECT cc.id, user_id, iban, estat_tarjeta FROM card_activity ca
+SELECT cc.id, cc.user_id, cc.iban, estat_tarjeta FROM card_activity ca
 JOIN credit_cards cc ON cc.id = ca.id
 WHERE estat_tarjeta = "tarjeta activa";
 
@@ -178,10 +179,10 @@ ENCLOSED BY '"'
 IGNORE 1 ROWS;
 
 SELECT * FROM products;
-
+DROP TABLE transaction_products;
 CREATE TABLE transaction_products (
-    transaction_id VARCHAR (50) NOT NULL,
-    product_id VARCHAR (50) NOT NULL,
+    transaction_id VARCHAR (100),
+    product_id VARCHAR (100),
     PRIMARY KEY (transaction_id, product_id),
     FOREIGN KEY (transaction_id) REFERENCES transactions(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
@@ -193,12 +194,11 @@ SELECT
     p.id
 FROM transactions t
 JOIN JSON_TABLE(
-        CONCAT('["', REPLACE(t.product_ids, ',', '","'), '"]'),
+        CONCAT('[', t.product_ids, ']'),
         '$[*]' COLUMNS (
             product_id INT PATH '$'
         )
     ) AS jt
-    ON TRUE
 JOIN products p
     ON p.id = jt.product_id;
 
