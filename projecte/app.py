@@ -20,7 +20,9 @@ st.set_page_config(
 # ── Carreguem el notebook ─────────────────────────────────────────────────────
 @st.cache_resource
 def carregar_notebook():
-    with open("Overtake_analisi_v3.ipynb", "r", encoding="utf-8") as f:
+    # Substitueix la línia 23 per aquesta:
+    BASE_DIR = Path(__file__).parent
+    with open(BASE_DIR / "Overtake_analisi_v3.ipynb", "r", encoding="utf-8") as f:
         return nbformat.read(f, as_version=4)
 
 nb = carregar_notebook()
