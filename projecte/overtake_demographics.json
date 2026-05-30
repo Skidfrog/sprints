@@ -1,0 +1,415 @@
+{
+  "gender": [
+    {
+      "key": "U",
+      "value": 20.74
+    },
+    {
+      "key": "F",
+      "value": 6.46
+    },
+    {
+      "key": "M",
+      "value": 72.8
+    }
+  ],
+  "age": [
+    {
+      "key": "25-34",
+      "value": 37.37
+    },
+    {
+      "key": "18-24",
+      "value": 20.86
+    },
+    {
+      "key": "U",
+      "value": 0.0
+    },
+    {
+      "key": "55-64",
+      "value": 4.28
+    },
+    {
+      "key": "13-17",
+      "value": 2.76
+    },
+    {
+      "key": "35-44",
+      "value": 22.06
+    },
+    {
+      "key": "65+",
+      "value": 1.88
+    },
+    {
+      "key": "45-54",
+      "value": 10.79
+    }
+  ],
+  "country": [
+    {
+      "key": "DE",
+      "value": 2.8
+    },
+    {
+      "key": "RS",
+      "value": 0.79
+    },
+    {
+      "key": "TW",
+      "value": 0.99
+    },
+    {
+      "key": "BE",
+      "value": 0.54
+    },
+    {
+      "key": "PT",
+      "value": 3.36
+    },
+    {
+      "key": "JP",
+      "value": 1.12
+    },
+    {
+      "key": "HR",
+      "value": 0.24
+    },
+    {
+      "key": "DO",
+      "value": 1.04
+    },
+    {
+      "key": "FR",
+      "value": 6.32
+    },
+    {
+      "key": "HU",
+      "value": 0.44
+    },
+    {
+      "key": "BR",
+      "value": 4.51
+    },
+    {
+      "key": "SE",
+      "value": 0.28
+    },
+    {
+      "key": "SG",
+      "value": 0.29
+    },
+    {
+      "key": "SI",
+      "value": 0.3
+    },
+    {
+      "key": "ID",
+      "value": 28.07
+    },
+    {
+      "key": "GB",
+      "value": 3.76
+    },
+    {
+      "key": "SN",
+      "value": 0.22
+    },
+    {
+      "key": "IE",
+      "value": 0.23
+    },
+    {
+      "key": "US",
+      "value": 3.37
+    },
+    {
+      "key": "CA",
+      "value": 0.33
+    },
+    {
+      "key": "IN",
+      "value": 3.11
+    },
+    {
+      "key": "CH",
+      "value": 0.7
+    },
+    {
+      "key": "ZA",
+      "value": 0.67
+    },
+    {
+      "key": "CL",
+      "value": 0.43
+    },
+    {
+      "key": "IR",
+      "value": 0.28
+    },
+    {
+      "key": "IT",
+      "value": 6.09
+    },
+    {
+      "key": "MX",
+      "value": 0.83
+    },
+    {
+      "key": "CN",
+      "value": 0.45
+    },
+    {
+      "key": "GR",
+      "value": 0.41
+    },
+    {
+      "key": "MY",
+      "value": 3.78
+    },
+    {
+      "key": "CO",
+      "value": 0.97
+    },
+    {
+      "key": "ES",
+      "value": 10.47
+    },
+    {
+      "key": "AO",
+      "value": 0.26
+    },
+    {
+      "key": "VE",
+      "value": 0.99
+    },
+    {
+      "key": "AR",
+      "value": 1.64
+    },
+    {
+      "key": "AT",
+      "value": 0.98
+    },
+    {
+      "key": "TH",
+      "value": 2.24
+    },
+    {
+      "key": "AU",
+      "value": 1.51
+    },
+    {
+      "key": "CZ",
+      "value": 0.74
+    },
+    {
+      "key": "PH",
+      "value": 0.7
+    },
+    {
+      "key": "PK",
+      "value": 0.35
+    },
+    {
+      "key": "PL",
+      "value": 0.69
+    },
+    {
+      "key": "RO",
+      "value": 0.45
+    },
+    {
+      "key": "NL",
+      "value": 1.21
+    },
+    {
+      "key": "TR",
+      "value": 1.09
+    }
+  ],
+  "city": [
+    {
+      "key": "Samarinda, East Kalimantan",
+      "value": 0.25
+    },
+    {
+      "key": "Banyumas, Central Java",
+      "value": 0.22
+    },
+    {
+      "key": "Madrid, Comunidad de Madrid",
+      "value": 0.65
+    },
+    {
+      "key": "Sialkot, Punjab",
+      "value": 0.22
+    },
+    {
+      "key": "Barcelona, Cataluña",
+      "value": 0.61
+    },
+    {
+      "key": "Jakarta, Jakarta",
+      "value": 2.56
+    },
+    {
+      "key": "Lisbon, Lisbon District",
+      "value": 0.19
+    },
+    {
+      "key": "Bangkok, Bangkok",
+      "value": 0.61
+    },
+    {
+      "key": "Malang, East Java",
+      "value": 0.27
+    },
+    {
+      "key": "Valencia, Comunidad Valenciana",
+      "value": 0.26
+    },
+    {
+      "key": "Istanbul, Istanbul Province",
+      "value": 0.26
+    },
+    {
+      "key": "Singapore, Singapore",
+      "value": 0.29
+    },
+    {
+      "key": "Santiago, Santiago Metropolitan Region",
+      "value": 0.22
+    },
+    {
+      "key": "Depok, West Java",
+      "value": 0.52
+    },
+    {
+      "key": "Pekanbaru, Riau",
+      "value": 0.25
+    },
+    {
+      "key": "Kuala Lumpur, Kuala Lumpur",
+      "value": 0.37
+    },
+    {
+      "key": "Bogotá, Distrito Especial",
+      "value": 0.22
+    },
+    {
+      "key": "Balikpapan, East Kalimantan",
+      "value": 0.19
+    },
+    {
+      "key": "Shah Alam, Selangor",
+      "value": 0.22
+    },
+    {
+      "key": "Chennai, Tamil Nadu",
+      "value": 0.33
+    },
+    {
+      "key": "Padang, West Sumatra",
+      "value": 0.22
+    },
+    {
+      "key": "Banda Aceh, Aceh",
+      "value": 0.3
+    },
+    {
+      "key": "Pontianak, West Kalimantan",
+      "value": 0.2
+    },
+    {
+      "key": "São Paulo, São Paulo (state)",
+      "value": 0.45
+    },
+    {
+      "key": "Surabaya, East Java",
+      "value": 0.69
+    },
+    {
+      "key": "Batam, Riau Islands Province",
+      "value": 0.24
+    },
+    {
+      "key": "Palembang, South Sumatra",
+      "value": 0.25
+    },
+    {
+      "key": "Sydney, New South Wales",
+      "value": 0.26
+    },
+    {
+      "key": "Mexico City, Distrito Federal",
+      "value": 0.2
+    },
+    {
+      "key": "Caracas, Capital District",
+      "value": 0.24
+    },
+    {
+      "key": "Goiânia, Goiás",
+      "value": 0.19
+    },
+    {
+      "key": "Gresik, East Java",
+      "value": 0.19
+    },
+    {
+      "key": "Melbourne, Victoria",
+      "value": 0.34
+    },
+    {
+      "key": "Belgrade, Central Serbia",
+      "value": 0.28
+    },
+    {
+      "key": "Denpasar, Bali",
+      "value": 0.28
+    },
+    {
+      "key": "Bekasi, West Java",
+      "value": 0.65
+    },
+    {
+      "key": "Makassar, South Sulawesi",
+      "value": 0.26
+    },
+    {
+      "key": "Hong Kong, Hong Kong",
+      "value": 0.22
+    },
+    {
+      "key": "Bangalore, Karnataka",
+      "value": 0.36
+    },
+    {
+      "key": "Semarang, Central Java",
+      "value": 0.49
+    },
+    {
+      "key": "Tangerang, Banten",
+      "value": 0.35
+    },
+    {
+      "key": "Bandung, West Java",
+      "value": 0.7
+    },
+    {
+      "key": "Medan, North Sumatra",
+      "value": 0.25
+    },
+    {
+      "key": "Rome, Lazio",
+      "value": 0.23
+    },
+    {
+      "key": "Bandar Lampung, Lampung",
+      "value": 0.22
+    }
+  ],
+  "postsTypes": []
+}
