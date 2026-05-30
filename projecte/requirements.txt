@@ -1,0 +1,16 @@
+streamlit>=1.32.0
+nbformat>=5.9.0
+nbconvert>=7.0.0
+pandas
+numpy
+matplotlib
+seaborn
+scipy
+statsmodels
+transformers
+torch
+Pillow
+requests
+tqdm
+wordcloud
+scikit-learn
