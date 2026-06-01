@@ -295,6 +295,18 @@ elif seccio == "👥 Audiència":
     )
     st.plotly_chart(fig4, use_container_width=True)
 
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PÀGINA: Graella de rellevància
+# ══════════════════════════════════════════════════════════════════════════════
+from pathlib import Path
+import streamlit.components.v1 as components
+
+st.subheader("Graella de rellevància · Pilots")
+graella_html = (BASE_DIR / "overtake_graella_pilots.html").read_text(encoding='utf-8')
+components.html(graella_html, height=750, scrolling=True)
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # PÀGINA: METODOLOGIA
 # ══════════════════════════════════════════════════════════════════════════════
