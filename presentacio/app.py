@@ -64,7 +64,7 @@ top_countries = pd.concat([
 ], ignore_index=True)
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
-st.sidebar.image("https://i.imgur.com/placeholder.png", width=180)
+st.sidebar.image(str(BASE_DIR / "img" / "logo.png"), width=180)
 st.sidebar.title("Overtake.GP")
 st.sidebar.markdown("**Anàlisi de dades · 2024–2026**")
 st.sidebar.divider()
@@ -326,7 +326,7 @@ elif seccio == "🔬 Metodologia":
     ### Sobre el projecte
     Aquest projecte forma part d'un doble àmbit acadèmic:
     - **TFG** (Grau en Comunicació i Indústries Culturals · UB) — desenvolupat per Christian Duarte
-    - **Bootcamp Data Analytics** (Barcelona Activa) — desenvolupat per Nowan
+    - **Bootcamp Data Analytics** (Barcelona Activa) — desenvolupat per Jordi Lamarca
 
     ### Fonts de dades
     | Font | Contingut | Període |
