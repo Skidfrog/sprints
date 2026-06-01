@@ -9,6 +9,7 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 from pathlib import Path
 import pycountry
+import streamlit.components.v1 as components
 
 # ── Configuració ──────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -73,6 +74,7 @@ seccio = st.sidebar.radio("Navega", [
     "📈 Creixement",
     "📊 Publicacions",
     "👥 Audiència",
+    "🏍️ Pilots",
     "🔬 Metodologia"
 ])
 
@@ -297,14 +299,13 @@ elif seccio == "👥 Audiència":
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PÀGINA: Graella de rellevància
+# PÀGINA: Rellevància dels pilots
 # ══════════════════════════════════════════════════════════════════════════════
-from pathlib import Path
-import streamlit.components.v1 as components
-
-st.subheader("Graella de rellevància · Pilots")
-graella_html = (BASE_DIR / "overtake_graella_pilots.html").read_text(encoding='utf-8')
-components.html(graella_html, height=750, scrolling=True)
+elif seccio == "🏍️ Pilots":
+    st.title("🏍️ Rànquing de pilots · Overtake.GP")
+    st.divider()
+    graella_html = (BASE_DIR / "overtake_graella_pilots.html").read_text(encoding='utf-8')
+    components.html(graella_html, height=750, scrolling=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
