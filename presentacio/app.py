@@ -244,21 +244,21 @@ elif seccio == "👥 Audiència":
     ordre_edat = ['13-17','18-24','25-34','35-44','45-54','55-64','65+']
     df_age_ord = df_age.set_index('franja').reindex(ordre_edat).reset_index()
 
-    fig4 = make_subplots(
-        rows=2, cols=2,
-        specs=[[{"type":"pie"},{"type":"bar"}],
-               [{"type":"pie"},{"type":"table"}]],
-        subplot_titles=['Gènere','Franja d\'edat','Top països','Top ciutats'],
-        vertical_spacing=0.12, horizontal_spacing=0.08
+    # ── Fila 1: Gènere + Edat ─────────────────────────────────────────────────
+    fig4a = make_subplots(
+        rows=1, cols=2,
+        specs=[[{"type":"pie"},{"type":"bar"}]],
+        subplot_titles=['Gènere', "Franja d'edat"],
+        horizontal_spacing=0.15
     )
-    fig4.add_trace(go.Pie(
+    fig4a.add_trace(go.Pie(
         labels=df_gender['label'], values=df_gender['pct'],
         hole=0.55, marker=dict(colors=['#4A90D9','#E24B4A','#aaaaaa']),
         textinfo='percent', textposition='inside',
         hovertemplate='<b>%{label}</b><br>%{value:.1f}%<extra></extra>',
         showlegend=True, legend='legend', name='Gènere'
     ), row=1, col=1)
-    fig4.add_trace(go.Bar(
+    fig4a.add_trace(go.Bar(
         x=df_age_ord['franja'], y=df_age_ord['pct'],
         marker=dict(color=df_age_ord['pct'],
                     colorscale=[[0,'#9FE1CB'],[1,'#1D9E75']],
@@ -268,34 +268,41 @@ elif seccio == "👥 Audiència":
         hovertemplate='<b>%{x}</b><br>%{y:.1f}%<extra></extra>',
         showlegend=False
     ), row=1, col=2)
-    fig4.add_trace(go.Pie(
-        labels=top_countries['nom'], values=top_countries['pct'],
-        hole=0.55, marker=dict(colors=colors_pais),
-        textinfo='percent', textposition='inside',
-        hovertemplate='<b>%{label}</b><br>%{value:.1f}%<extra></extra>',
-        showlegend=True, legend='legend2', name='Països'
-    ), row=2, col=1)
-    fig4.add_trace(go.Table(
-        header=dict(values=['<b>Ciutat</b>','<b>%</b>'],
-                    fill_color='#1D9E75',
-                    font=dict(color='white', size=11),
-                    align='left', height=28),
-        cells=dict(values=[df_city['ciutat'].head(12),
-                            df_city['pct'].head(12).apply(lambda x: f'{x:.2f}%')],
-                   fill_color=[['#f9f9f9','white']*6],
-                   align='left', font=dict(size=10), height=24)
-    ), row=2, col=2)
-    fig4.update_layout(
-        height=700,
+    fig4a.update_layout(
+        height=350,
         margin=dict(t=60, b=40, l=40, r=40),
         legend=dict(orientation='v', x=0.38, y=0.95, xanchor='left',
                     font=dict(size=10),
-                    title=dict(text='Gènere', font=dict(size=10))),
-        legend2=dict(orientation='v', x=0.38, y=0.45, xanchor='left',
-                     font=dict(size=10),
-                     title=dict(text='Països', font=dict(size=10)))
+                    title=dict(text='Gènere', font=dict(size=10)))
     )
-    st.plotly_chart(fig4, use_container_width=True)
+    st.plotly_chart(fig4a, use_container_width=True)
+
+    # ── Fila 2: Països + Taula ciutats ────────────────────────────────────────
+    col1, col2 = st.columns([1, 1])
+
+    with col1:
+        fig4b = go.Figure(go.Pie(
+            labels=top_countries['nom'], values=top_countries['pct'],
+            hole=0.55, marker=dict(colors=colors_pais),
+            textinfo='percent', textposition='inside',
+            hovertemplate='<b>%{label}</b><br>%{value:.1f}%<extra></extra>',
+            showlegend=True, name='Països'
+        ))
+        fig4b.update_layout(
+            height=350,
+            margin=dict(t=40, b=20, l=20, r=20),
+            title=dict(text='Top països', font=dict(size=12)),
+            legend=dict(orientation='v', x=1.02, y=0.95, font=dict(size=10))
+        )
+        st.plotly_chart(fig4b, use_container_width=True)
+
+    with col2:
+        st.markdown("**Top ciutats**")
+        df_ciutats = df_city[['ciutat','pct']].head(12).copy()
+        df_ciutats.columns = ['Ciutat', '%']
+        df_ciutats['%'] = df_ciutats['%'].apply(lambda x: f'{x:.2f}%')
+        st.dataframe(df_ciutats, hide_index=True,
+                     use_container_width=True, height=320)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
