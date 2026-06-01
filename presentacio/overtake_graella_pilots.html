@@ -65,27 +65,24 @@
   <div class="grass right"></div>
 </div>
 <script>
-// Dades dels pilots — índex compost ponderat (freqüència × rendiment)
-// Colors: col·1=lila, col·2=blau, col·3=verd (excepte podi: or/plata/bronze)
 const pilots = [
-  {pos:1,  num:"93", name:"Marc Márquez",    color:"#FFD700", idx:0.784, posts:71, likes:5759, eng:11.36, views:178223},
-  {pos:2,  num:"20", name:"Fabio Quartararo",color:"#C0C0C0", idx:0.177, posts:17, likes:5523, eng:10.77, views:102823},
-  {pos:3,  num:"89", name:"Jorge Martín",    color:"#CD7F32", idx:0.135, posts:28, likes:3241, eng:9.25,  views:95224},
-  {pos:4,  num:"37", name:"Pedro Acosta",    color:"#9B59B6", idx:0.121, posts:22, likes:2652, eng:10.35, views:74962},
-  {pos:5,  num:"11", name:"Diogo Moreira",   color:"#4A90D9", idx:0.095, posts:5,  likes:6826, eng:9.62,  views:215953},
-  {pos:6,  num:"72", name:"Marco Bezzecchi", color:"#1ABC9C", idx:0.102, posts:25, likes:2429, eng:9.68,  views:72119},
-  {pos:7,  num:"88", name:"Miguel Oliveira", color:"#9B59B6", idx:0.085, posts:8,  likes:6579, eng:9.03,  views:271374},
-  {pos:8,  num:"12", name:"Maverick Viñales",color:"#4A90D9", idx:0.080, posts:13, likes:4896, eng:9.04,  views:118358},
-  {pos:9,  num:"46", name:"Valentino Rossi", color:"#1ABC9C", idx:0.075, posts:7,  likes:7524, eng:9.97,  views:262143},
-  {pos:10, num:"73", name:"Álex Márquez",    color:"#9B59B6", idx:0.073, posts:21, likes:2562, eng:9.14,  views:80378},
-  {pos:11, num:"36", name:"Joan Mir",        color:"#4A90D9", idx:0.031, posts:8,  likes:2905, eng:10.10, views:55054},
-  {pos:12, num:"54", name:"Fermín Aldeguer", color:"#1ABC9C", idx:0.000, posts:6,  likes:3750, eng:8.68,  views:98234},
-  {pos:13, num:"25", name:"Raúl Fernández",  color:"#9B59B6", idx:0.000, posts:6,  likes:2100, eng:8.50,  views:65000},
-  {pos:14, num:"5",  name:"Johann Zarco",    color:"#4A90D9", idx:0.000, posts:6,  likes:2905, eng:8.97,  views:127341},
-  {pos:15, num:"43", name:"Jack Miller",     color:"#1ABC9C", idx:0.000, posts:6,  likes:6782, eng:8.82,  views:298541},
+  {pos:1,  num:"93", name:"Marc Márquez",     color:"#FFD700", idx:0.782, posts:71, likes:5759, eng:11.36, views:178223},
+  {pos:2,  num:"63", name:"Pecco Bagnaia",    color:"#C0C0C0", idx:0.252, posts:25, likes:6190, eng:10.03, views:156125},
+  {pos:3,  num:"20", name:"Fabio Quartararo", color:"#CD7F32", idx:0.190, posts:18, likes:5523, eng:10.77, views:102823},
+  {pos:4,  num:"37", name:"Pedro Acosta",     color:"#9B59B6", idx:0.107, posts:22, likes:2652, eng:10.35, views:74962},
+  {pos:5,  num:"89", name:"Jorge Martín",     color:"#4A90D9", idx:0.104, posts:28, likes:3241, eng:9.25,  views:95224},
+  {pos:6,  num:"72", name:"Marco Bezzecchi",  color:"#1ABC9C", idx:0.082, posts:26, likes:2429, eng:9.68,  views:72119},
+  {pos:7,  num:"12", name:"Maverick Viñales", color:"#9B59B6", idx:0.082, posts:17, likes:4896, eng:9.04,  views:118358},
+  {pos:8,  num:"88", name:"Miguel Oliveira",  color:"#4A90D9", idx:0.076, posts:8,  likes:6579, eng:9.03,  views:271374},
+  {pos:9,  num:"46", name:"Valentino Rossi",  color:"#1ABC9C", idx:0.070, posts:7,  likes:7524, eng:9.97,  views:262143},
+  {pos:10, num:"73", name:"Álex Márquez",     color:"#9B59B6", idx:0.047, posts:21, likes:2562, eng:9.14,  views:80378},
+  {pos:11, num:"36", name:"Joan Mir",         color:"#4A90D9", idx:0.025, posts:8,  likes:2905, eng:10.10, views:55054},
+  {pos:12, num:"5",  name:"Johann Zarco",     color:"#1ABC9C", idx:0.022, posts:7,  likes:2905, eng:8.97,  views:127341},
+  {pos:13, num:"25", name:"Raúl Fernández",   color:"#9B59B6", idx:0.000, posts:6,  likes:2100, eng:8.50,  views:65000},
+  {pos:14, num:"43", name:"Jack Miller",      color:"#4A90D9", idx:0.000, posts:6,  likes:6782, eng:8.82,  views:298541},
+  {pos:15, num:"54", name:"Fermín Aldeguer",  color:"#1ABC9C", idx:0.000, posts:6,  likes:3750, eng:8.68,  views:98234},
 ];
 
-// Layout graella MotoGP: pole al centre de la primera fila
 const rows = [
   [pilots[1], pilots[0], pilots[2]],
   [pilots[3], pilots[4], pilots[5]],
