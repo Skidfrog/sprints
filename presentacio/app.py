@@ -326,15 +326,17 @@ elif seccio == "📈 Benchmarking":
     st.caption("Comparativa d'Overtake.GP amb 6 comptes referents del sector")
     st.divider()
 
-    colors_comptes = {
-        'overtake':             '#1D9E75',
-        'motorspain_77':        '#4A90D9',
-        'motorsportcom':        '#E67E22',
-        'moto_gp':              '#E24B4A',
-        'motociclismo_es':      '#9B59B6',
-        'everithingmotoracing': '#F1C40F',
-        'brake_gp':             '#1ABC9C',
-    }
+    colors_pais = [
+    '#264653',  # Blau fosc
+    '#2A9D8F',  # Verd mar
+    '#E9C46A',  # Or suau
+    '#F4A261',  # Taronja suau
+    '#E76F51',  # Corall
+    '#457B9D',  # Blau mitjà
+    '#A8DADC',  # Blau cel
+    '#6D6875',  # Lila gris
+    '#B0B0B0',  # Gris · Altres
+    ]
 
     fig_bench = make_subplots(
         rows=2, cols=2,
