@@ -77,7 +77,7 @@ seccio = st.sidebar.radio("Navega", [
     "📈 Creixement",
     "📊 Publicacions",
     "👥 Audiència",
-    "📊 Benchmarking",
+    "📉 Benchmarking",
     "🏍️ Pilots",
     "🔬 Metodologia"
 ])
@@ -321,8 +321,8 @@ elif seccio == "👥 Audiència":
 # ══════════════════════════════════════════════════════════════════════════════
 # PÀGINA: BENCHMARKING
 # ══════════════════════════════════════════════════════════════════════════════
-elif seccio == "📈 Benchmarking":
-    st.title("📈 Benchmarking · Comparativa de creixement")
+elif seccio == "📉 Benchmarking":
+    st.title("📉 Benchmarking · Comparativa de creixement")
     st.caption("Comparativa d'Overtake.GP amb 6 comptes referents del sector")
     st.divider()
 
