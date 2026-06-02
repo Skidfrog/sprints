@@ -31,6 +31,9 @@ def carregar_dades():
                                  parse_dates=['date'])
     metriques_dia  = pd.read_csv(DATA_DIR / "metriques_dia.csv",
                                  parse_dates=['date'])
+    df_llarg      = pd.read_csv(DATA_DIR / "df_llarg_processed.csv", parse_dates=['date'])
+    df_curt       = pd.read_csv(DATA_DIR / "df_curt_processed.csv", parse_dates=['date'])
+    
     with open(DATA_DIR / "metricool_demografia.json", encoding='utf-8') as f:
         demo_raw = json.load(f)
     return hist, posts_dia, metriques_dia, demo_raw
@@ -74,6 +77,7 @@ seccio = st.sidebar.radio("Navega", [
     "📈 Creixement",
     "📊 Publicacions",
     "👥 Audiència",
+    "📊 Benchmarking",
     "🏍️ Pilots",
     "🔬 Metodologia"
 ])
@@ -237,8 +241,17 @@ elif seccio == "👥 Audiència":
     st.caption("Font: Metricool API · instantània estàtica · maig 2026")
     st.divider()
 
-    colors_pais = ['#1D9E75','#4A90D9','#E67E22','#9B59B6','#E24B4A',
-                   '#F1C40F','#1ABC9C','#E91E63','#aaaaaa']
+    colors_pais = [
+    '#2E86AB',  # Blau profund · Indonesia
+    '#A23B72',  # Magenta fosc · Espanya
+    '#F18F01',  # Ambre · França
+    '#C73E1D',  # Vermell terra · Itàlia
+    '#3B1F2B',  # Pruna · Brasil
+    '#44BBA4',  # Verd aiguamarina · Malàisia
+    '#E94F37',  # Corall · Regne Unit
+    '#393E41',  # Gris antracita · Estats Units
+    '#B0B0B0',  # Gris clar · Altres
+]
     genere_map = {'M':'Home','F':'Dona','U':'Desconegut'}
     df_gender['label'] = df_gender['genere'].map(genere_map)
     ordre_edat = ['13-17','18-24','25-34','35-44','45-54','55-64','65+']
@@ -303,6 +316,104 @@ elif seccio == "👥 Audiència":
         df_ciutats['%'] = df_ciutats['%'].apply(lambda x: f'{x:.2f}%')
         st.dataframe(df_ciutats, hide_index=True,
                      use_container_width=True, height=320)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PÀGINA: BENCHMARKING
+# ══════════════════════════════════════════════════════════════════════════════
+elif seccio == "📈 Benchmarking":
+    st.title("📈 Benchmarking · Comparativa de creixement")
+    st.caption("Comparativa d'Overtake.GP amb 6 comptes referents del sector")
+    st.divider()
+
+    colors_comptes = {
+        'overtake':             '#1D9E75',
+        'motorspain_77':        '#4A90D9',
+        'motorsportcom':        '#E67E22',
+        'moto_gp':              '#E24B4A',
+        'motociclismo_es':      '#9B59B6',
+        'everithingmotoracing': '#F1C40F',
+        'brake_gp':             '#1ABC9C',
+    }
+
+    fig_bench = make_subplots(
+        rows=2, cols=2,
+        subplot_titles=[
+            'Taxa creixement diari (mediana) · Període llarg',
+            'Índex base 100 · Període llarg',
+            'Taxa creixement diari (mediana) · Període curt',
+            'Índex base 100 · Període curt',
+        ],
+        vertical_spacing=0.15,
+        horizontal_spacing=0.10
+    )
+
+    resum_llarg = (
+        df_llarg.groupby('account')['daily_growth_rel']
+        .median().sort_values(ascending=False).reset_index()
+    )
+    resum_llarg['daily_growth_pct'] = resum_llarg['daily_growth_rel'] * 100
+
+    fig_bench.add_trace(go.Bar(
+        x=resum_llarg['account'],
+        y=resum_llarg['daily_growth_pct'],
+        marker_color=[colors_comptes.get(c, '#aaa') for c in resum_llarg['account']],
+        hovertemplate='<b>%{x}</b><br>Creixement diari: %{y:.3f}%<extra></extra>',
+        showlegend=False
+    ), row=1, col=1)
+
+    for compte, grup in df_llarg.groupby('account'):
+        grup = grup.sort_values('date')
+        base = grup['followers_count'].iloc[0]
+        idx  = (grup['followers_count'] / base * 100).round(1)
+        fig_bench.add_trace(go.Scatter(
+            x=grup['date'], y=idx,
+            name=compte,
+            line=dict(color=colors_comptes.get(compte, '#aaa'), width=1.8),
+            hovertemplate='<b>' + compte + '</b><br>%{x|%b %Y}<br>Índex: %{y:.1f}<br>Seguidors: %{customdata:,.0f}<extra></extra>',
+            customdata=grup['followers_count'].values,
+            legendgroup=compte, showlegend=True
+        ), row=1, col=2)
+
+    resum_curt = (
+        df_curt.groupby('account')['daily_growth_rel']
+        .median().sort_values(ascending=False).reset_index()
+    )
+    resum_curt['daily_growth_pct'] = resum_curt['daily_growth_rel'] * 100
+
+    fig_bench.add_trace(go.Bar(
+        x=resum_curt['account'],
+        y=resum_curt['daily_growth_pct'],
+        marker_color=[colors_comptes.get(c, '#aaa') for c in resum_curt['account']],
+        hovertemplate='<b>%{x}</b><br>Creixement diari: %{y:.3f}%<extra></extra>',
+        showlegend=False
+    ), row=2, col=1)
+
+    for compte, grup in df_curt.groupby('account'):
+        grup = grup.sort_values('date')
+        base = grup['followers_count'].iloc[0]
+        idx  = (grup['followers_count'] / base * 100).round(1)
+        fig_bench.add_trace(go.Scatter(
+            x=grup['date'], y=idx,
+            name=compte,
+            line=dict(color=colors_comptes.get(compte, '#aaa'), width=1.8),
+            hovertemplate='<b>' + compte + '</b><br>%{x|%b %Y}<br>Índex: %{y:.1f}<br>Seguidors: %{customdata:,.0f}<extra></extra>',
+            customdata=grup['followers_count'].values,
+            legendgroup=compte, showlegend=False
+        ), row=2, col=2)
+
+    fig_bench.update_layout(
+        height=700,
+        hovermode='x unified',
+        legend=dict(orientation='h', y=-0.08, x=0),
+        margin=dict(t=60, b=80, l=60, r=40)
+    )
+    fig_bench.update_yaxes(title_text='Creixement diari (%)', row=1, col=1)
+    fig_bench.update_yaxes(title_text='Creixement diari (%)', row=2, col=1)
+    fig_bench.update_yaxes(title_text='Índex (base 100)', row=1, col=2)
+    fig_bench.update_yaxes(title_text='Índex (base 100)', row=2, col=2)
+
+    st.plotly_chart(fig_bench, use_container_width=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
