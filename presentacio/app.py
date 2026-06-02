@@ -36,9 +36,9 @@ def carregar_dades():
     
     with open(DATA_DIR / "metricool_demografia.json", encoding='utf-8') as f:
         demo_raw = json.load(f)
-    return hist, posts_dia, metriques_dia, demo_raw
+    return hist, posts_dia, metriques_dia, df_llarg, df_curt, demo_raw
 
-hist, posts_dia, metriques_dia, demo_raw = carregar_dades()
+hist, posts_dia, metriques_dia, df_llarg, df_curt, demo_raw = carregar_dades()
 
 # ── Preprocessament demografia ────────────────────────────────────────────────
 def nom_pais(codi):
