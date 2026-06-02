@@ -25,20 +25,17 @@ DATA_DIR  = BASE_DIR / "data"
 # ── Càrrega de dades ──────────────────────────────────────────────────────────
 @st.cache_data
 def carregar_dades():
-    hist           = pd.read_csv(DATA_DIR / "hist_processed.csv",
-                                 parse_dates=['date'])
-    posts_dia      = pd.read_csv(DATA_DIR / "posts_dia_combined.csv",
-                                 parse_dates=['date'])
-    metriques_dia  = pd.read_csv(DATA_DIR / "metriques_dia.csv",
-                                 parse_dates=['date'])
+    hist          = pd.read_csv(DATA_DIR / "hist_processed.csv", parse_dates=['date'])
+    posts_dia     = pd.read_csv(DATA_DIR / "posts_dia_combined.csv", parse_dates=['date'])
+    metriques_dia = pd.read_csv(DATA_DIR / "metriques_dia.csv", parse_dates=['date'])
     df_llarg      = pd.read_csv(DATA_DIR / "df_llarg_processed.csv", parse_dates=['date'])
     df_curt       = pd.read_csv(DATA_DIR / "df_curt_processed.csv", parse_dates=['date'])
-    
+    df_comptes    = pd.read_csv(DATA_DIR / "df_comptes_processed.csv", parse_dates=['date'])
     with open(DATA_DIR / "metricool_demografia.json", encoding='utf-8') as f:
         demo_raw = json.load(f)
-    return hist, posts_dia, metriques_dia, df_llarg, df_curt, demo_raw
+    return hist, posts_dia, metriques_dia, df_llarg, df_curt, df_comptes, demo_raw
 
-hist, posts_dia, metriques_dia, df_llarg, df_curt, demo_raw = carregar_dades()
+hist, posts_dia, metriques_dia, df_llarg, df_curt, df_comptes, demo_raw = carregar_dades()
 
 # ── Preprocessament demografia ────────────────────────────────────────────────
 def nom_pais(codi):
@@ -336,6 +333,60 @@ elif seccio == "📉 Benchmarking":
         'brake_gp':             '#1ABC9C',
     }
 
+    # ── Seguidors actuals · escala lineal i logarítmica ──────────────────────────
+    st.subheader("Volum de seguidors per compte")
+
+    seg_actuals = (
+        df_comptes.groupby('account')['followers_count']
+        .last()
+        .sort_values(ascending=False)
+        .reset_index()
+    )
+    seg_actuals.columns = ['account', 'seguidors']
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        fig_lin = go.Figure(go.Bar(
+            x=seg_actuals['account'],
+            y=seg_actuals['seguidors'],
+            marker_color=['#1D9E75' if a == 'overtake' else '#9FE1CB'
+                        for a in seg_actuals['account']],
+            text=seg_actuals['seguidors'].apply(
+                lambda x: f'{x/1e6:.1f}M' if x > 1e6 else f'{x/1e3:.0f}k'),
+            textposition='outside',
+            hovertemplate='<b>%{x}</b><br>Seguidors: %{y:,.0f}<extra></extra>'
+        ))
+        fig_lin.update_layout(
+            title=dict(text='Escala lineal', font=dict(size=11)),
+            yaxis=dict(title='Seguidors'),
+            height=350, margin=dict(t=50, b=40, l=60, r=20),
+            showlegend=False
+        )
+        st.plotly_chart(fig_lin, use_container_width=True)
+
+    with col2:
+        fig_log = go.Figure(go.Bar(
+            x=seg_actuals['account'],
+            y=seg_actuals['seguidors'],
+            marker_color=['#1D9E75' if a == 'overtake' else '#9FE1CB'
+                        for a in seg_actuals['account']],
+            text=seg_actuals['seguidors'].apply(
+                lambda x: f'{x/1e6:.1f}M' if x > 1e6 else f'{x/1e3:.0f}k'),
+            textposition='outside',
+            hovertemplate='<b>%{x}</b><br>Seguidors: %{y:,.0f}<extra></extra>'
+        ))
+        fig_log.update_layout(
+            title=dict(text='Escala logarítmica', font=dict(size=11)),
+            yaxis=dict(title='Seguidors', type='log'),
+            height=350, margin=dict(t=50, b=40, l=60, r=20),
+            showlegend=False
+        )
+        st.plotly_chart(fig_log, use_container_width=True)
+
+    st.divider()
+
+   
     fig_bench = make_subplots(
         rows=2, cols=2,
         subplot_titles=[
