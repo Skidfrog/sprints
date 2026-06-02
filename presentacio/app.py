@@ -242,15 +242,15 @@ elif seccio == "👥 Audiència":
     st.divider()
 
     colors_pais = [
-    '#2E86AB',  # Blau profund · Indonesia
-    '#A23B72',  # Magenta fosc · Espanya
-    '#F18F01',  # Ambre · França
-    '#C73E1D',  # Vermell terra · Itàlia
-    '#3B1F2B',  # Pruna · Brasil
-    '#44BBA4',  # Verd aiguamarina · Malàisia
-    '#E94F37',  # Corall · Regne Unit
-    '#393E41',  # Gris antracita · Estats Units
-    '#B0B0B0',  # Gris clar · Altres
+        '#264653',  # Blau fosc
+    '#2A9D8F',  # Verd mar
+    '#E9C46A',  # Or suau
+    '#F4A261',  # Taronja suau
+    '#E76F51',  # Corall
+    '#457B9D',  # Blau mitjà
+    '#A8DADC',  # Blau cel
+    '#6D6875',  # Lila gris
+    '#B0B0B0',  # Gris · Altres
 ]
     genere_map = {'M':'Home','F':'Dona','U':'Desconegut'}
     df_gender['label'] = df_gender['genere'].map(genere_map)
@@ -326,17 +326,15 @@ elif seccio == "📈 Benchmarking":
     st.caption("Comparativa d'Overtake.GP amb 6 comptes referents del sector")
     st.divider()
 
-    colors_pais = [
-    '#264653',  # Blau fosc
-    '#2A9D8F',  # Verd mar
-    '#E9C46A',  # Or suau
-    '#F4A261',  # Taronja suau
-    '#E76F51',  # Corall
-    '#457B9D',  # Blau mitjà
-    '#A8DADC',  # Blau cel
-    '#6D6875',  # Lila gris
-    '#B0B0B0',  # Gris · Altres
-    ]
+    colors_comptes = {
+        'overtake':             '#1D9E75',
+        'motorspain_77':        '#4A90D9',
+        'motorsportcom':        '#E67E22',
+        'moto_gp':              '#E24B4A',
+        'motociclismo_es':      '#9B59B6',
+        'everithingmotoracing': '#F1C40F',
+        'brake_gp':             '#1ABC9C',
+    }
 
     fig_bench = make_subplots(
         rows=2, cols=2,
