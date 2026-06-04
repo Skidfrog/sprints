@@ -22,6 +22,27 @@ st.set_page_config(
 BASE_DIR  = Path(__file__).parent
 DATA_DIR  = BASE_DIR / "data"
 
+# ── Tema global Plotly ────────────────────────────────────────────────────────
+import plotly.io as pio
+
+pio.templates["overtake"] = pio.templates["plotly_white"]
+pio.templates["overtake"].layout.font = dict(
+    family="Barlow, sans-serif", size=12, color="#222222"
+)
+pio.templates["overtake"].layout.title.font = dict(
+    family="Barlow, sans-serif", size=15, color="#111111"
+)
+pio.templates["overtake"].layout.paper_bgcolor = '#F7F7F7'
+pio.templates["overtake"].layout.plot_bgcolor  = '#F7F7F7'
+pio.templates["overtake"].layout.xaxis = dict(
+    gridcolor='#eeeeee', linecolor='#cccccc'
+)
+pio.templates["overtake"].layout.yaxis = dict(
+    gridcolor='#eeeeee', linecolor='#cccccc'
+)
+pio.templates.default = "overtake"
+
+
 # ── Càrrega de dades ──────────────────────────────────────────────────────────
 @st.cache_data
 def carregar_dades():
@@ -135,7 +156,9 @@ elif seccio == "📈 Creixement":
     ), secondary_y=False)
     fig1.add_trace(go.Bar(
         x=posts_dia['date'], y=posts_dia['posts_dia'],
-        name='Posts/dia', marker_color='rgba(255,165,0,0.5)',
+        name='Posts/dia', 
+        marker_color='rgba(255,140,0,0.85)',
+        marker_line_width=0,
         hovertemplate='<b>%{x|%d %b %Y}</b><br>Posts: %{y:.0f}<extra></extra>'
     ), secondary_y=True)
     fig1.update_layout(
