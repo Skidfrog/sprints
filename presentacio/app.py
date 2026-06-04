@@ -32,7 +32,7 @@ pio.templates["overtake"].layout.font = dict(
 pio.templates["overtake"].layout.title.font = dict(
     family="Barlow, sans-serif", size=15, color="#111111"
 )
-pio.templates["overtake"].layout.paper_bgcolor = '#F7F7F7'
+pio.templates["overtake"].layout.paper_bgcolor = "#F7F7F774"
 pio.templates["overtake"].layout.plot_bgcolor  = '#F7F7F7'
 pio.templates["overtake"].layout.xaxis = dict(
     gridcolor='#eeeeee', linecolor='#cccccc'
@@ -205,8 +205,8 @@ elif seccio == "📈 Creixement":
         ),
         yaxis=dict(title='Seguidors/dia'),
         hovermode='x unified', height=380, showlegend=False,
-        paper_bgcolor='#F7F7F7',
-        plot_bgcolor='#F7F7F7'
+        paper_bgcolor='rgba(247,247,247,0.75)',
+        plot_bgcolor='rgba(247,247,247,0.75)'
     )
     st.plotly_chart(fig2, use_container_width=True)
 
