@@ -175,9 +175,8 @@ elif seccio == "📈 Creixement":
         yaxis=dict(title='Seguidors'),
         yaxis2=dict(title='Posts/dia', showgrid=False),
         hovermode='x unified', height=420,
-        legend=dict(orientation='h', y=1.08),
-        paper_bgcolor='#F7F7F7',
-        plot_bgcolor='#F7F7F7'
+        legend=dict(orientation='h', y=1.08)
+        
     )
     st.plotly_chart(fig1, use_container_width=True)
 
