@@ -22,7 +22,7 @@ st.set_page_config(
 def carregar_notebook():
     # Substitueix la línia 23 per aquesta:
     BASE_DIR = Path(__file__).parent
-    with open(BASE_DIR / "Overtake_analisi_v4.ipynb", "r", encoding="utf-8") as f:
+    with open(BASE_DIR / "Overtake_analisi_v4_1.ipynb", "r", encoding="utf-8") as f:
         return nbformat.read(f, as_version=4)
 
 nb = carregar_notebook()
