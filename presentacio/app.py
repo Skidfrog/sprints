@@ -10,6 +10,7 @@ from plotly.subplots import make_subplots
 from pathlib import Path
 import pycountry
 import streamlit.components.v1 as components
+import plotly.io as pio
 
 # ── Configuració ──────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -23,7 +24,6 @@ BASE_DIR  = Path(__file__).parent
 DATA_DIR  = BASE_DIR / "data"
 
 # ── Tema global Plotly ────────────────────────────────────────────────────────
-import plotly.io as pio
 
 pio.templates["overtake"] = pio.templates["plotly_white"]
 pio.templates["overtake"].layout.font = dict(
@@ -175,7 +175,9 @@ elif seccio == "📈 Creixement":
         yaxis=dict(title='Seguidors'),
         yaxis2=dict(title='Posts/dia', showgrid=False),
         hovermode='x unified', height=420,
-        legend=dict(orientation='h', y=1.08)
+        legend=dict(orientation='h', y=1.08),
+        paper_bgcolor='#F7F7F7',
+        plot_bgcolor='#F7F7F7'
     )
     st.plotly_chart(fig1, use_container_width=True)
 
@@ -202,7 +204,9 @@ elif seccio == "📈 Creixement":
             ])
         ),
         yaxis=dict(title='Seguidors/dia'),
-        hovermode='x unified', height=380, showlegend=False
+        hovermode='x unified', height=380, showlegend=False,
+        paper_bgcolor='#F7F7F7',
+        plot_bgcolor='#F7F7F7'
     )
     st.plotly_chart(fig2, use_container_width=True)
 
@@ -249,7 +253,9 @@ elif seccio == "📊 Publicacions":
         yaxis=dict(title='Engagement (%)'),
         yaxis2=dict(title='Likes', showgrid=False),
         hovermode='x unified', height=420,
-        legend=dict(orientation='h', y=1.08)
+        legend=dict(orientation='h', y=1.08),
+        paper_bgcolor='#F7F7F7',
+        plot_bgcolor='#F7F7F7',
     )
     st.plotly_chart(fig3, use_container_width=True)
 
@@ -304,6 +310,8 @@ elif seccio == "👥 Audiència":
     fig4a.update_layout(
         height=350,
         margin=dict(t=60, b=40, l=40, r=40),
+        paper_bgcolor='#F7F7F7',
+        plot_bgcolor='#F7F7F7',
         legend=dict(orientation='v', x=0.38, y=0.95, xanchor='left',
                     font=dict(size=10),
                     title=dict(text='Gènere', font=dict(size=10)))
@@ -324,6 +332,8 @@ elif seccio == "👥 Audiència":
         fig4b.update_layout(
             height=350,
             margin=dict(t=40, b=20, l=20, r=20),
+            paper_bgcolor='#F7F7F7',
+            plot_bgcolor='#F7F7F7',
             title=dict(text='Top països', font=dict(size=12)),
             legend=dict(orientation='v', x=1.02, y=0.95, font=dict(size=10))
         )
@@ -383,6 +393,8 @@ elif seccio == "📉 Benchmarking":
         fig_lin.update_layout(
             title=dict(text='Escala lineal', font=dict(size=11)),
             yaxis=dict(title='Seguidors'),
+            paper_bgcolor='#F7F7F7',
+            plot_bgcolor='#F7F7F7',
             height=350, margin=dict(t=50, b=40, l=60, r=20),
             showlegend=False
         )
@@ -403,6 +415,8 @@ elif seccio == "📉 Benchmarking":
             title=dict(text='Escala logarítmica', font=dict(size=11)),
             yaxis=dict(title='Seguidors', type='log'),
             height=350, margin=dict(t=50, b=40, l=60, r=20),
+            paper_bgcolor='#F7F7F7',
+            plot_bgcolor='#F7F7F7',
             showlegend=False
         )
         st.plotly_chart(fig_log, use_container_width=True)
@@ -479,6 +493,8 @@ elif seccio == "📉 Benchmarking":
     fig_bench.update_layout(
         height=700,
         hovermode='x unified',
+        paper_bgcolor='#F7F7F7',
+        plot_bgcolor='#F7F7F7',
         legend=dict(orientation='h', y=-0.08, x=0),
         margin=dict(t=60, b=80, l=60, r=40)
     )
