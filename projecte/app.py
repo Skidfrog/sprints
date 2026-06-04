@@ -32,8 +32,8 @@ pio.templates["overtake"].layout.font = dict(
 pio.templates["overtake"].layout.title.font = dict(
     family="Barlow, sans-serif", size=15, color="#111111"
 )
-pio.templates["overtake"].layout.paper_bgcolor = 'rgba(247,247,247,0.75)'
-pio.templates["overtake"].layout.plot_bgcolor  = 'rgba(247,247,247,0.75)'
+pio.templates["overtake"].layout.paper_bgcolor = "rgba(247,247,247,0.25)"
+pio.templates["overtake"].layout.plot_bgcolor  = '#F7F7F7'
 pio.templates["overtake"].layout.xaxis = dict(
     gridcolor='#eeeeee', linecolor='#cccccc'
 )
@@ -176,8 +176,8 @@ elif seccio == "📈 Creixement":
         yaxis2=dict(title='Posts/dia', showgrid=False),
         hovermode='x unified', height=420,
         legend=dict(orientation='h', y=1.08),
-        paper_bgcolor='rgba(247,247,247,0.75)',
-        plot_bgcolor='rgba(247,247,247,0.75)'
+        paper_bgcolor='#F7F7F7',
+        plot_bgcolor='#F7F7F7'
     )
     st.plotly_chart(fig1, use_container_width=True)
 
@@ -254,8 +254,8 @@ elif seccio == "📊 Publicacions":
         yaxis2=dict(title='Likes', showgrid=False),
         hovermode='x unified', height=420,
         legend=dict(orientation='h', y=1.08),
-        paper_bgcolor='rgba(247,247,247,0.75)',
-        plot_bgcolor='rgba(247,247,247,0.75)',
+        paper_bgcolor='#F7F7F7',
+        plot_bgcolor='#F7F7F7',
     )
     st.plotly_chart(fig3, use_container_width=True)
 
@@ -310,8 +310,8 @@ elif seccio == "👥 Audiència":
     fig4a.update_layout(
         height=350,
         margin=dict(t=60, b=40, l=40, r=40),
-        paper_bgcolor='rgba(247,247,247,0.75)',
-        plot_bgcolor='rgba(247,247,247,0.75)',
+        paper_bgcolor='#F7F7F7',
+        plot_bgcolor='#F7F7F7',
         legend=dict(orientation='v', x=0.38, y=0.95, xanchor='left',
                     font=dict(size=10),
                     title=dict(text='Gènere', font=dict(size=10)))
@@ -332,8 +332,8 @@ elif seccio == "👥 Audiència":
         fig4b.update_layout(
             height=350,
             margin=dict(t=40, b=20, l=20, r=20),
-            paper_bgcolor='rgba(247,247,247,0.75)',
-            plot_bgcolor='rgba(247,247,247,0.75)',
+            paper_bgcolor='#F7F7F7',
+            plot_bgcolor='#F7F7F7',
             title=dict(text='Top països', font=dict(size=12)),
             legend=dict(orientation='v', x=1.02, y=0.95, font=dict(size=10))
         )
@@ -393,8 +393,8 @@ elif seccio == "📉 Benchmarking":
         fig_lin.update_layout(
             title=dict(text='Escala lineal', font=dict(size=11)),
             yaxis=dict(title='Seguidors'),
-            paper_bgcolor='rgba(247,247,247,0.75)',
-            plot_bgcolor='rgba(247,247,247,0.75)',
+            paper_bgcolor='#F7F7F7',
+            plot_bgcolor='#F7F7F7',
             height=350, margin=dict(t=50, b=40, l=60, r=20),
             showlegend=False
         )
@@ -415,8 +415,8 @@ elif seccio == "📉 Benchmarking":
             title=dict(text='Escala logarítmica', font=dict(size=11)),
             yaxis=dict(title='Seguidors', type='log'),
             height=350, margin=dict(t=50, b=40, l=60, r=20),
-            paper_bgcolor='rgba(247,247,247,0.75)',
-            plot_bgcolor='rgba(247,247,247,0.75)',
+            paper_bgcolor='#F7F7F7',
+            plot_bgcolor='#F7F7F7',
             showlegend=False
         )
         st.plotly_chart(fig_log, use_container_width=True)
@@ -493,8 +493,8 @@ elif seccio == "📉 Benchmarking":
     fig_bench.update_layout(
         height=700,
         hovermode='x unified',
-        paper_bgcolor='rgba(247,247,247,0.75)',
-        plot_bgcolor='rgba(247,247,247,0.75)',
+        paper_bgcolor='#F7F7F7',
+        plot_bgcolor='#F7F7F7',
         legend=dict(orientation='h', y=-0.08, x=0),
         margin=dict(t=60, b=80, l=60, r=40)
     )
