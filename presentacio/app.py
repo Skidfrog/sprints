@@ -32,8 +32,8 @@ pio.templates["overtake"].layout.font = dict(
 pio.templates["overtake"].layout.title.font = dict(
     family="Barlow, sans-serif", size=15, color="#111111"
 )
-pio.templates["overtake"].layout.paper_bgcolor = "#F7F7F774"
-pio.templates["overtake"].layout.plot_bgcolor  = '#F7F7F7'
+pio.templates["overtake"].layout.paper_bgcolor = "rgba(247,247,247,0.25)"
+pio.templates["overtake"].layout.plot_bgcolor  = "rgba(247,247,247,0.25)"
 pio.templates["overtake"].layout.xaxis = dict(
     gridcolor='#eeeeee', linecolor='#cccccc'
 )
